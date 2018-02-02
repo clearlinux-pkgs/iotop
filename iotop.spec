@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 0.6
-Release  : 14
+Release  : 15
 URL      : http://guichaz.free.fr/iotop/files/iotop-0.6.tar.bz2
 Source0  : http://guichaz.free.fr/iotop/files/iotop-0.6.tar.bz2
 Summary  : Per process I/O bandwidth monitor
