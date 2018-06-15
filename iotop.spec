@@ -15,7 +15,7 @@ Requires: iotop-bin
 Requires: iotop-doc
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : python-dev
+
 BuildRequires : setuptools
 
 %description
