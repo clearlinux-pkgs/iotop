@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 19
+Release  : 20
 URL      : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
 Summary  : View I/O usage of processes
@@ -74,7 +74,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553985490
+export SOURCE_DATE_EPOCH=1553990003
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -87,13 +87,16 @@ python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+## install_append content
+mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
+## install_append end
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
-/usr/sbin/iotop
+/usr/bin/iotop
 
 %files license
 %defattr(0644,root,root,0755)
