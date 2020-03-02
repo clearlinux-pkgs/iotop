@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 24
+Release  : 25
 URL      : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
 Summary  : View I/O usage of processes
@@ -68,13 +68,20 @@ python3 components for the iotop package.
 
 %prep
 %setup -q -n iotop-7c51ce0
+cd %{_builddir}/iotop-7c51ce0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1553990003
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1583158574
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -82,7 +89,7 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/iotop
-cp COPYING %{buildroot}/usr/share/package-licenses/iotop/COPYING
+cp %{_builddir}/iotop-7c51ce0/COPYING %{buildroot}/usr/share/package-licenses/iotop/4d1d37f306ed270cda5b2741fac3abf0a7b012e5
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -100,7 +107,7 @@ mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/iotop/COPYING
+/usr/share/package-licenses/iotop/4d1d37f306ed270cda5b2741fac3abf0a7b012e5
 
 %files man
 %defattr(0644,root,root,0755)
