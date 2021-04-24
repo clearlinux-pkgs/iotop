@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 30
+Release  : 31
 URL      : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
 Summary  : View I/O usage of processes
