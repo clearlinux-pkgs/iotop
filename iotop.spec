@@ -4,10 +4,10 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 32
-URL      : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
-Source0  : https://repo.or.cz/iotop.git/snapshot/7c51ce0e29bd135c216f18e18f0c4ab769af0d6f.tar.gz
-Summary  : View I/O usage of processes
+Release  : 33
+URL      : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
+Source0  : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: iotop-bin = %{version}-%{release}
@@ -67,20 +67,19 @@ python3 components for the iotop package.
 
 
 %prep
-%setup -q -n iotop-7c51ce0
-cd %{_builddir}/iotop-7c51ce0
+%setup -q -n iotop-1869c0b
+cd %{_builddir}/iotop-1869c0b
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583158574
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1624658612
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
@@ -89,7 +88,7 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/iotop
-cp %{_builddir}/iotop-7c51ce0/COPYING %{buildroot}/usr/share/package-licenses/iotop/4d1d37f306ed270cda5b2741fac3abf0a7b012e5
+cp %{_builddir}/iotop-1869c0b/COPYING %{buildroot}/usr/share/package-licenses/iotop/4d1d37f306ed270cda5b2741fac3abf0a7b012e5
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
