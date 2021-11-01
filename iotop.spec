@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 38
+Release  : 39
 URL      : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Summary  : No detailed summary available
@@ -75,7 +75,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1624658612
+export SOURCE_DATE_EPOCH=1635742109
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
