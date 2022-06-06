@@ -4,13 +4,15 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 40
+Release  : 42
 URL      : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: iotop-bin = %{version}-%{release}
+Requires: iotop-filemap = %{version}-%{release}
+Requires: iotop-lib = %{version}-%{release}
 Requires: iotop-license = %{version}-%{release}
 Requires: iotop-man = %{version}-%{release}
 Requires: iotop-python = %{version}-%{release}
@@ -27,9 +29,28 @@ CONFIG_TASK_IO_ACCOUNTING and CONFIG_VM_EVENT_COUNTERS options on.
 Summary: bin components for the iotop package.
 Group: Binaries
 Requires: iotop-license = %{version}-%{release}
+Requires: iotop-filemap = %{version}-%{release}
 
 %description bin
 bin components for the iotop package.
+
+
+%package filemap
+Summary: filemap components for the iotop package.
+Group: Default
+
+%description filemap
+filemap components for the iotop package.
+
+
+%package lib
+Summary: lib components for the iotop package.
+Group: Libraries
+Requires: iotop-license = %{version}-%{release}
+Requires: iotop-filemap = %{version}-%{release}
+
+%description lib
+lib components for the iotop package.
 
 
 %package license
@@ -60,6 +81,7 @@ python components for the iotop package.
 %package python3
 Summary: python3 components for the iotop package.
 Group: Default
+Requires: iotop-filemap = %{version}-%{release}
 Requires: python3-core
 
 %description python3
@@ -69,13 +91,16 @@ python3 components for the iotop package.
 %prep
 %setup -q -n iotop-1869c0b
 cd %{_builddir}/iotop-1869c0b
+pushd ..
+cp -a iotop-1869c0b buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1635742109
+export SOURCE_DATE_EPOCH=1654527039
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -84,6 +109,15 @@ export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 setup.py build
+
+popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
@@ -93,9 +127,20 @@ python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 -tt setup.py build install --root=%{buildroot}-v3
+popd
 ## install_append content
-mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
+#mkdir -p %{buildroot}/usr/bin
+#mv %{buildroot}/usr/sbin/*  %{buildroot}/usr/bin
+#rmdir  %{buildroot}/usr/sbin/*
 ## install_append end
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -103,6 +148,14 @@ mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/iotop
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-iotop
+
+%files lib
+%defattr(-,root,root,-)
+/usr/share/clear/optimized-elf/other*
 
 %files license
 %defattr(0644,root,root,0755)

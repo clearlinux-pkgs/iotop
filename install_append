@@ -1,1 +1,3 @@
-mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
+#mkdir -p %{buildroot}/usr/bin
+#mv %{buildroot}/usr/sbin/*  %{buildroot}/usr/bin
+#rmdir  %{buildroot}/usr/sbin/*
