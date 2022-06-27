@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 42
+Release  : 43
 URL      : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Summary  : No detailed summary available
@@ -100,7 +100,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1654527039
+export SOURCE_DATE_EPOCH=1656369569
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -140,7 +140,7 @@ popd
 #mv %{buildroot}/usr/sbin/*  %{buildroot}/usr/bin
 #rmdir  %{buildroot}/usr/sbin/*
 ## install_append end
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
