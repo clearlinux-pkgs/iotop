@@ -4,7 +4,7 @@
 #
 Name     : iotop
 Version  : 1
-Release  : 44
+Release  : 45
 URL      : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Source0  : https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
 Summary  : No detailed summary available
