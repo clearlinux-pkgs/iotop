@@ -1,5 +1,5 @@
 PKG_NAME := iotop
-URL = https://repo.or.cz/iotop.git/snapshot/1869c0b3d8cf5a3270755f81063e0d6f9d8b690a.tar.gz
+URL = https://repo.or.cz/iotop.git/snapshot/4b2e1aa2464cfc4a29c9565c9e143b52ef8e4848.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
